@@ -248,7 +248,18 @@ class App extends React.Component {
 
 
                 </div>
-                <div><Icon name="plus square outline" color="violet" onClick={() => this.renderList(data.key)} /></div>
+                <div style={{ width: "100%" }}>
+                  <div class="ui small buttons" style={{ paddingTop: 10, paddingBottom: 10, display: 'flex', width: 20, marginLeft: "20%" }}>
+                    <button onClick={() => this.addFriends(data.key)} class="ui button">Add friends</button>
+                    <div class="or"></div>
+                    <button onClick={() => this.renderList(data.key)} class="ui button">Show Friends</button>
+                  </div>
+                </div>
+                {/* <Button onClick={() => this.addFriends(data.key)}>Add Friends</Button>
+                <Button onClick={() => this.renderList(data.key)}>See Friends</Button> */}
+
+                {/* <div><Icon name="plus square outline" color="violet" onClick={() => this.renderList(data.key)} /></div> */}
+
               </>
 
             )}
@@ -273,26 +284,11 @@ class App extends React.Component {
                   </div>
                 </div>
               )}
+              <button onClick={() => this.setState({ openModal: false })} class="small ui button">Submit</button>
+
 
             </Modal>
           </>
-          {/* <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Company</Table.HeaderCell>
-                <Table.HeaderCell>Amount</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>
-                  <Label ribbon> COmpany</Label>
-                </Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table> */}
         </Grid.Column>
       </Grid >
     );
