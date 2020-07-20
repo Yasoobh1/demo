@@ -204,14 +204,7 @@ class App extends React.Component {
                       </Table.Row>
                     </Table.Body>
                   </Table>
-                  {/* <div style={{ paddingRight: '100%' }}><h3>{data.data.bill}</h3></div> */}
-                  {/* <div><h3>{data.data.amount}</h3></div> */}
-                  {/* <div><Icon name="plus square outline" color="violet" onClick={() => this.renderList(data.key)} /></div> */}
-
-                  {/* <Button onClick={() => this.addFriends(data.key)}>Add Friends</Button> */}
-
                   <Modal isOpen={this.state.setModalisOpen}>
-
                     <Form onSubmit={(e) => this.collectAmount(e)} size="large">
                       <Segment stacked>
                         <Form.Input
@@ -239,10 +232,8 @@ class App extends React.Component {
                           fluid
                           size="large">
                           Submit
-            </Button>
-
+                        </Button>
                       </Segment>
-
                     </Form>
                   </Modal>
 
@@ -255,11 +246,6 @@ class App extends React.Component {
                     <button onClick={() => this.renderList(data.key)} class="ui button">Show Friends</button>
                   </div>
                 </div>
-                {/* <Button onClick={() => this.addFriends(data.key)}>Add Friends</Button>
-                <Button onClick={() => this.renderList(data.key)}>See Friends</Button> */}
-
-                {/* <div><Icon name="plus square outline" color="violet" onClick={() => this.renderList(data.key)} /></div> */}
-
               </>
 
             )}
