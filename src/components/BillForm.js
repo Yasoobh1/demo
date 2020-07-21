@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, Segment, Header, Button, Message, Icon, Label, Menu, Table } from "semantic-ui-react";
+import { Grid, Form, Segment, Button } from "semantic-ui-react";
 import "../config"
 import * as firebase from 'firebase'
 import PayerForm from './payerForm';

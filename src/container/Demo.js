@@ -1,11 +1,10 @@
 import React from 'react';
 import logo from '../logo.svg';
-import { Grid, Form, Segment, Header, Button, Message, Icon, Label, Menu, Table } from "semantic-ui-react";
+import { Grid, Form, Segment, Button, Label, Table } from "semantic-ui-react";
 import "../config"
 import * as firebase from 'firebase'
 import Modal from 'react-modal';
 import BillForm from '../components/BillForm';
-import PayerForm from '../components/payerForm';
 import AddFriendsModal from '../components/addFriendsModal';
 // import '../App.css'
 var billArray = [];
@@ -174,12 +173,10 @@ class Demo extends React.Component {
                     </Table.Row>
                   </Table.Body>
                 )}
-
               </Table>
               <div style={{ justifyContent: 'center', display: 'flex', paddingTop: 10 }}>
                 <button onClick={() => this.setState({ openModal: false })} class="small ui button">Close</button>
               </div>
-
             </Modal>
           </div>
         </Grid.Column>
