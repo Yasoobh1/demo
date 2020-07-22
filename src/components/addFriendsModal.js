@@ -5,75 +5,59 @@ import * as firebase from 'firebase'
 import Modal from 'react-modal';
 
 
-class AddFriendsModal extends React.Component {
-    state = {
-        collectAmount: '',
-        collectionFriend: '',
-        description: '',
-        setModalisOpen: false
+const AddFriendsModal = ({ addFriendModalOpen, collectionFriend, handleAddFriends, collectAmount, description, closeAddFriendsModal, collectdata }) => {
+    return (
+        <Grid.Column style={{ maxWidth: 450 }}>
 
-    }
-
-    collectAmount = (e) => {
-        if (this.state.collectionFriend && this.state.collectAmount && this.state.description) {
-            this.setState({ setModalisOpen: false })
-            e.preventDefault()
-            firebase
-                .database()
-                .ref(`users/${this.state.setKey}/friendList`)
-                .push({
-                    collectionFriend: this.state.collectionFriend,
-                    collectAmount: this.state.collectAmount,
-                    description: this.state.description
-                })
-            alert("Record Saved To Firebase")
-        } else {
-            alert("Record Not saved Please fill All fields")
-        }
-
-
-    }
-
-    render() {
-        console.log(this.props.addFriendModalOpen)
-        return (
-            <Grid.Column style={{ maxWidth: 450 }}>
-
-                <Modal isOpen={this.state.setModalisOpen}>
-                    <Form onSubmit={(e) => this.collectAmount(e)} size="large">
-                        <Segment stacked>
-                            <Form.Input
-                                fluid
-                                name="collectionfriend"
-                                iconPosition="left"
-                                placeholder="Friend Name"
-                                onChange={e => this.setState({ collectionFriend: e.target.value })}
-                                type="text" />
-                            <Form.Input
-                                fluid
-                                name="collection"
-                                iconPosition="left"
-                                placeholder="Colect Amount"
-                                onChange={e => this.setState({ collectAmount: e.target.value })}
-                                type="text" />
-                            <Form.Input
-                                fluid
-                                name="description"
-                                placeholder="Description"
-                                onChange={e => this.setState({ description: e.target.value })}
-                                type="text" />
-                            <Button
-                                color="orange"
-                                fluid
-                                size="large">
-                                Submit
+            <Modal isOpen={addFriendModalOpen}>
+                <Form size="large">
+                    <Segment stacked>
+                        <Form.Input
+                            fluid
+                            name="collectionFriend"
+                            placeholder="Friend Name"
+                            value={collectionFriend}
+                            onChange={handleAddFriends}
+                            type="text" />
+                        <Form.Input
+                            fluid
+                            name="collectAmount"
+                            placeholder="Colect Amount"
+                            value={collectAmount}
+                            onChange={handleAddFriends}
+                            type="text" />
+                        <Form.Input
+                            fluid
+                            name="description"
+                            placeholder="Description"
+                            value={description}
+                            onChange={handleAddFriends}
+                            type="text" />
+                    </Segment>
+                </Form>
+                <div style={{ paddingTop: 20, display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ alignContent: 'center', width: 100 }}>
+                        <Button
+                            onClick={(e) => collectdata(e)}
+                            color="orange"
+                            fluid
+                            size="small">
+                            Submit
                         </Button>
-                        </Segment>
-                    </Form>
-                </Modal>
-            </Grid.Column>
-        )
-    }
+                    </div>
+                    <div style={{ paddingLeft: 10, alignContent: 'center', width: 100 }}>
+                        <Button
+                            onClick={closeAddFriendsModal}
+                            color="grey"
+                            fluid
+                            size="small">
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
+        </Grid.Column>
+    )
 }
 
 export default AddFriendsModal
