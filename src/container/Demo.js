@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from '../logo.svg';
-import { Grid, Form, Segment, Button, Label, Table } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import "../config"
 import * as firebase from 'firebase'
-import Modal from 'react-modal';
 import BillForm from '../components/BillForm';
 import AddFriendsModal from '../components/addFriendsModal';
 import BillTable from '../components/billTable';
