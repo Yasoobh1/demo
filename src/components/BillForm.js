@@ -12,15 +12,16 @@ class BillForm extends React.Component {
     }
 
     Submit = (e) => {
-        if (this.state.bill && this.state.amount) {
+        const { amount, bill } = this.state
+        if (bill && amount) {
             this.setState({ showInput: true })
             e.preventDefault()
             firebase
                 .database()
                 .ref("users")
                 .push({
-                    bill: this.state.bill,
-                    amount: this.state.amount,
+                    bill: bill,
+                    amount: amount,
                 })
             alert("Record Saved To Firebase")
         } else {
@@ -29,9 +30,11 @@ class BillForm extends React.Component {
 
     }
     render() {
+        const { showInput } = this.state
+
         return (
             <Grid.Column style={{ maxWidth: 450 }}>
-                {!this.state.showInput ?
+                {!showInput ?
 
                     <Form onSubmit={(e) => this.Submit(e)} size="large">
                         <h1>Total Bill</h1>
@@ -63,7 +66,7 @@ class BillForm extends React.Component {
 
                     </Form>
                     : ''}
-                {this.state.showInput ? <PayerForm /> : ''}
+                {showInput ? <PayerForm /> : ''}
 
             </Grid.Column>
         )

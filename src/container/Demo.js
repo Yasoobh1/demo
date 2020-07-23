@@ -32,16 +32,17 @@ class Demo extends React.Component {
   }
 
   collectAmount = (e) => {
-    if (this.state.collectionFriend && this.state.collectAmount && this.state.description) {
+    const { collectionFriend, collectAmount, description, setKey } = this.state
+    if (collectionFriend && collectAmount && description) {
       this.setState({ setModalisOpen: false })
       e.preventDefault()
       firebase
         .database()
-        .ref(`users/${this.state.setKey}/friendList`)
+        .ref(`users/${setKey}/friendList`)
         .push({
-          collectionFriend: this.state.collectionFriend,
-          collectAmount: this.state.collectAmount,
-          description: this.state.description
+          collectionFriend: collectionFriend,
+          collectAmount: collectAmount,
+          description: description
         })
       alert("Record Saved To Firebase")
     } else {
@@ -77,28 +78,22 @@ class Demo extends React.Component {
 
   closeFriendListModal = () => this.setState({ openModal: false })
   render() {
+    const { biller, setModalisOpen, collectionFriend, collectAmount, description, openModal, renderFriendList } = this.state
+
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
+
           <BillForm />
-          <Table called>
 
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>List OF Bills</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
+          <BillTable renderList={this.renderList} addFriends={this.addFriends} biller={biller} />
 
-            {this.state.biller && this.state.biller.map((data, i) =>
-              <BillTable renderList={this.renderList} addFriends={this.addFriends} firebaseKey={data.key} billName={data.data.bill} billAmount={data.data.amount} />
-            )}
-          </Table>
-
-          <AddFriendsModal addFriendModalOpen={this.state.setModalisOpen} collectionFriend={this.state.collectionFriend} handleAddFriends={this.handleAddFriends} collectAmount={this.state.collectAmount} description={this.state.description}
+          <AddFriendsModal addFriendModalOpen={setModalisOpen} collectionFriend={collectionFriend} handleAddFriends={this.handleAddFriends} collectAmount={collectAmount} description={description}
             closeAddFriendsModal={this.closeAddFriendsModal} collectdata={this.collectAmount}
           />
 
-          <ShowFriendListModal closeFriendListModal={this.closeFriendListModal} openModal={this.state.openModal} renderFriendList={this.state.renderFriendList} />
+          <ShowFriendListModal closeFriendListModal={this.closeFriendListModal} openModal={openModal} renderFriendList={renderFriendList} />
+
         </Grid.Column>
       </Grid >
     );

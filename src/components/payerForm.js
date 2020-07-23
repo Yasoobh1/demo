@@ -11,14 +11,16 @@ class PayerForm extends React.Component {
     }
 
     friendSubmit = (e) => {
-        if (this.state.friendName && this.state.friendsAmount) {
+        const { friendName, friendsAmount } = this.state
+
+        if (friendName && friendsAmount) {
             this.setState({ showCollect: true })
             e.preventDefault()
             firebase
                 .database()
                 .ref("payer")
                 .push({
-                    friendName: this.state.friendName, friendsAmount: this.state.friendsAmount
+                    friendName: friendName, friendsAmount: friendsAmount
                 })
             alert("Record Saved To Firebase")
         } else {

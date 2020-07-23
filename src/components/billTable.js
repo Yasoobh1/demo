@@ -3,27 +3,41 @@
 import React from 'react';
 import { Grid, Label, Table } from "semantic-ui-react";
 
-const BillTable = ({ billName, billAmount, renderList, addFriends, firebaseKey }) => {
+const BillTable = ({ renderList, addFriends, biller }) => {
 
-    return <Grid.Column style={{ maxWidth: 450 }}>
+    return (
+        <Grid.Column style={{ maxWidth: 450, paddingTop: 50 }}>
+            <Table called>
 
-        <div className='rowC'>
-            <Table celled >
-                <Table.Body>
+                <Table.Header>
                     <Table.Row>
-                        <Table.Cell >
-                            <Label ribbon> {billName}</Label>
-                        </Table.Cell>
-                        <Table.Cell>{billAmount}</Table.Cell>
+                        <Table.HeaderCell>List OF Bills</Table.HeaderCell>
                     </Table.Row>
-                </Table.Body>
+                </Table.Header>
+
+                {biller && biller.map((data, i) =>
+                    <>  <div className='rowC'>
+                        <Table celled >
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell >
+                                        <Label ribbon> {data.data.bill}</Label>
+                                    </Table.Cell>
+                                    <Table.Cell>{data.data.amount}</Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table>
+                    </div>
+                        <div class="ui small buttons" style={{ paddingTop: 10, paddingBottom: 10, display: 'flex', width: 20, marginLeft: "20%" }}>
+                            <button onClick={() => addFriends(data.key)} class="ui button">Add friends</button>
+                            <div class="or"></div>
+                            <button onClick={() => renderList(data.key)} class="ui button">Show Friends</button>
+                        </div>
+                    </>
+                )}
             </Table>
-        </div>
-        <div class="ui small buttons" style={{ paddingTop: 10, paddingBottom: 10, display: 'flex', width: 20, marginLeft: "20%" }}>
-            <button onClick={() => addFriends(firebaseKey)} class="ui button">Add friends</button>
-            <div class="or"></div>
-            <button onClick={() => renderList(firebaseKey)} class="ui button">Show Friends</button>
-        </div>
-    </Grid.Column>
+
+        </Grid.Column>
+    )
 }
 export default BillTable;
