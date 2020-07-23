@@ -7,20 +7,16 @@ import Modal from 'react-modal';
 import BillForm from '../components/BillForm';
 import AddFriendsModal from '../components/addFriendsModal';
 import BillTable from '../components/billTable';
+import ShowFriendListModal from '../components/showFriendListModal';
 
 var billArray = [];
-var friendList = []
 class Demo extends React.Component {
   state = {
-    data: [],
     collectAmount: '',
     collectionFriend: '',
     setModalisOpen: false,
     description: '',
-    renderBill: [],
-    showBill: false,
     openModal: false,
-    renderPayer: [],
     biller: [],
     setKey: '',
     renderFriendList: []
@@ -33,14 +29,6 @@ class Demo extends React.Component {
   gotBill = (data) => {
     billArray.push({ data: data.val(), key: data.key });
     this.setState({ biller: billArray })
-  }
-  gotData = (data) => {
-    friendList.push({ data: data.val(), key: data.key });
-    this.setState({ renderFriendList: friendList })
-  }
-
-  errData = (err) => {
-    console.log(err, "ERorrr")
   }
 
   collectAmount = (e) => {
@@ -65,7 +53,15 @@ class Demo extends React.Component {
   renderList = (key) => {
     this.setState({ openModal: true })
     var ref = firebase.database().ref(`users/${key}/friendList`);
-    ref.on('child_added', this.gotData, this.errData)
+    ref.on('value', (childSnapShot) => {
+      const result = [];
+      childSnapShot.forEach((data) => {
+        result.push({ key: data.key, data: data.val() })
+      })
+      this.setState({
+        renderFriendList: result
+      })
+    })
   }
 
   addFriends = (key) => {
@@ -78,6 +74,8 @@ class Demo extends React.Component {
   closeAddFriendsModal = () => {
     this.setState({ setModalisOpen: false })
   }
+
+  closeFriendListModal = () => this.setState({ openModal: false })
   render() {
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
@@ -96,37 +94,11 @@ class Demo extends React.Component {
             )}
           </Table>
 
-          <AddFriendsModal addFriendModalOpen={this.state.setModalisOpen} collectionFriend={this.state.collectionFriend}
-            handleAddFriends={this.handleAddFriends} collectAmount={this.state.collectAmount} description={this.state.description}
+          <AddFriendsModal addFriendModalOpen={this.state.setModalisOpen} collectionFriend={this.state.collectionFriend} handleAddFriends={this.handleAddFriends} collectAmount={this.state.collectAmount} description={this.state.description}
             closeAddFriendsModal={this.closeAddFriendsModal} collectdata={this.collectAmount}
           />
 
-          <Modal isOpen={this.state.openModal}>
-            <h3 style={{ textAlign: 'center' }}>Take Amount From Friends</h3>
-            <Table called>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Name</Table.HeaderCell>
-                  <Table.HeaderCell>Order</Table.HeaderCell>
-                  <Table.HeaderCell>Bill</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              {this.state.renderFriendList && this.state.renderFriendList.map((list) =>
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Cell >
-                      <Label ribbon> {list && list.data.collectionFriend}</Label>
-                    </Table.Cell>
-                    <Table.Cell>{list && list.data.description}</Table.Cell>
-                    <Table.Cell>{list && list.data.collectAmount}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              )}
-            </Table>
-            <div style={{ justifyContent: 'center', display: 'flex', paddingTop: 10 }}>
-              <button onClick={() => this.setState({ openModal: false })} class="small ui button">Close</button>
-            </div>
-          </Modal>
+          <ShowFriendListModal closeFriendListModal={this.closeFriendListModal} openModal={this.state.openModal} renderFriendList={this.state.renderFriendList} />
         </Grid.Column>
       </Grid >
     );
