@@ -76,6 +76,10 @@ class Demo extends React.Component {
   }
 
   closeFriendListModal = () => this.setState({ openModal: false })
+
+  logOut = () => {
+    this.props.history.push('/login')
+  }
   render() {
     const { biller, setModalisOpen, collectionFriend, collectAmount, description, openModal, renderFriendList } = this.state
 
@@ -92,7 +96,7 @@ class Demo extends React.Component {
           />
 
           <ShowFriendListModal closeFriendListModal={this.closeFriendListModal} openModal={openModal} renderFriendList={renderFriendList} />
-
+          <button onClick={() => this.logOut()} class="small ui button">LogOut</button>
         </Grid.Column>
       </Grid >
     );

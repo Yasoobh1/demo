@@ -1,9 +1,17 @@
 import React from 'react';
 import './App.css';
-import Demo from './container/Demo';
-const App = () => {
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRouter from './container/routes';
 
-  return <Demo />
+class App extends React.Component {
+
+  render() {
+    return (
+      <Router basename="/">
+        <AppRouter />
+      </Router>
+    )
+  }
 }
 
 export default App;
