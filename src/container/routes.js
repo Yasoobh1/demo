@@ -24,6 +24,6 @@ class AppRouter extends Component {
 }
 
 const mapStateFromProps = state => ({
-    currentUser: state.user.currentUser
+    currentUser: state.auth.currentUser
 })
 export default connect(mapStateFromProps)(AppRouter);

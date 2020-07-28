@@ -19,7 +19,6 @@ class SignIn extends React.Component {
         event.preventDefault();
         if (this.isFormValid(this.state.email, this.state.password)) {
             this.setState({ errors: [], loading: true });
-            console.log(this.state.email, this.state.password)
             firebase
                 .auth()
                 .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -109,7 +108,7 @@ class SignIn extends React.Component {
     }
 }
 const mapStateFromProps = state => ({
-    isLoading: state.user.isLoading,
-    currentUser: state.user.currentUser
+    isLoading: state.auth.isLoading,
+    currentUser: state.auth.currentUser
 })
 export default connect(mapStateFromProps, { setUser })(SignIn);
