@@ -23,8 +23,10 @@ class SignIn extends React.Component {
                 .auth()
                 .signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then(signedInUser => {
+                
                     this.props.setUser(signedInUser)
                     this.props.history.push('/')
+                
                 })
                 .catch(err => {
                     console.log(err);

@@ -7,8 +7,10 @@ import BillForm from '../components/BillForm';
 import AddFriendsModal from '../components/addFriendsModal';
 import BillTable from '../components/billTable';
 import ShowFriendListModal from '../components/showFriendListModal';
+import { clearUser } from '../actions';
+import { connect } from 'react-redux';
 
-var billArray = [];
+
 class Demo extends React.Component {
   state = {
     collectAmount: '',
@@ -22,12 +24,16 @@ class Demo extends React.Component {
   }
   componentDidMount() {
     var billRef = firebase.database().ref('users')
-    billRef.on('child_added', this.gotBill)
+    billRef.on('value', (childSnapShot) => {
+      const billResult = [];
+      childSnapShot.forEach((data) => {
+        billResult.push({ key: data.key, data: data.val() })
+      })
+      this.setState({
+        biller: billResult
+      })
+    })
 
-  }
-  gotBill = (data) => {
-    billArray.push({ data: data.val(), key: data.key });
-    this.setState({ biller: billArray })
   }
 
   collectAmount = (e) => {
@@ -79,6 +85,11 @@ class Demo extends React.Component {
 
   logOut = () => {
     this.props.history.push('/login')
+    this.props.clearUser();
+    firebase.auth().signOut().then(() =>  {
+      this.props.history.push('/login')
+      this.props.clearUser()
+  })
   }
   render() {
     const { biller, setModalisOpen, collectionFriend, collectAmount, description, openModal, renderFriendList } = this.state
@@ -102,4 +113,5 @@ class Demo extends React.Component {
     );
   }
 }
-export default Demo;
+export default connect(null, { clearUser })(Demo);
+
