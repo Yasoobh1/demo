@@ -3,6 +3,7 @@ import { Grid, Form, Segment, Button } from "semantic-ui-react";
 import "../config"
 import * as firebase from 'firebase'
 import PayerForm from './payerForm';
+import { connect } from 'react-redux';
 
 class BillForm extends React.Component {
     state = {
@@ -18,7 +19,7 @@ class BillForm extends React.Component {
             e.preventDefault()
             firebase
                 .database()
-                .ref("users")
+                .ref(`users/${this.props.currentUser.user.uid}`)
                 .push({
                     bill: bill,
                     amount: amount,
@@ -72,5 +73,8 @@ class BillForm extends React.Component {
         )
     }
 }
+const mapStateFromProps = state => ({
+    currentUser: state.auth.currentUser
+  })
 
-export default BillForm;
+export default connect(mapStateFromProps)(BillForm);

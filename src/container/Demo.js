@@ -23,7 +23,7 @@ class Demo extends React.Component {
     renderFriendList: []
   }
   componentDidMount() {
-    var billRef = firebase.database().ref('users')
+    var billRef = firebase.database().ref(`users/${this.props.currentUser.user.uid}`)
     billRef.on('value', (childSnapShot) => {
       const billResult = [];
       childSnapShot.forEach((data) => {
@@ -113,5 +113,9 @@ class Demo extends React.Component {
     );
   }
 }
-export default connect(null, { clearUser })(Demo);
+const mapStateFromProps = state => ({
+  isLoading: state.auth.isLoading,
+  currentUser: state.auth.currentUser
+})
+export default connect(mapStateFromProps, { clearUser })(Demo);
 
