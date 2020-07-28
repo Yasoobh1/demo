@@ -1,9 +1,9 @@
 
 
 import React from 'react';
-import { Grid, Label, Table } from "semantic-ui-react";
+import { Grid, Label, Table, Icon } from "semantic-ui-react";
 
-const BillTable = ({ renderList, addFriends, biller }) => {
+const BillTable = ({ renderList, addFriends, biller,removeData }) => {
 
     return (
         <Grid.Column style={{ maxWidth: 450, paddingTop: 50 }}>
@@ -24,6 +24,9 @@ const BillTable = ({ renderList, addFriends, biller }) => {
                                         <Label ribbon> {data.data.bill}</Label>
                                     </Table.Cell>
                                     <Table.Cell>{data.data.amount}</Table.Cell>
+                                    <Table.Cell>
+                                    <Icon onClick= {() => removeData(data.key)} name="window close" color="orange" />
+                                    </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>

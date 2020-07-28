@@ -91,6 +91,12 @@ class Demo extends React.Component {
       this.props.clearUser()
   })
   }
+
+  removeData = (key) => {
+    firebase.database().ref(`records/${this.props.currentUser.user.uid}/${key}`).remove()
+    firebase.database().ref(`records/${key}`).remove()
+
+  }
   render() {
     const { biller, setModalisOpen, collectionFriend, collectAmount, description, openModal, renderFriendList } = this.state
 
@@ -100,7 +106,7 @@ class Demo extends React.Component {
 
           <BillForm />
 
-          <BillTable renderList={this.renderList} addFriends={this.addFriends} biller={biller} />
+          <BillTable renderList={this.renderList} addFriends={this.addFriends} biller={biller} removeData={this.removeData}/>
 
           <AddFriendsModal addFriendModalOpen={setModalisOpen} collectionFriend={collectionFriend} handleAddFriends={this.handleAddFriends} collectAmount={collectAmount} description={description}
             closeAddFriendsModal={this.closeAddFriendsModal} collectdata={this.collectAmount}
