@@ -2,7 +2,8 @@ import React from 'react';
 import { Grid, Form, Segment, Header, Button, Message, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import * as firebase from 'firebase'
-
+import { connect } from 'react-redux'
+import { setUser } from '../../actions';
 import md5 from 'md5';
 
 class SignIn extends React.Component {
@@ -23,6 +24,7 @@ class SignIn extends React.Component {
                 .auth()
                 .signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then(signedInUser => {
+                    this.props.setUser(signedInUser)
                     this.props.history.push('/')
                 })
                 .catch(err => {
@@ -106,5 +108,8 @@ class SignIn extends React.Component {
         )
     }
 }
-
-export default SignIn;
+const mapStateFromProps = state => ({
+    isLoading: state.user.isLoading,
+    currentUser: state.user.currentUser
+})
+export default connect(mapStateFromProps, { setUser })(SignIn);
