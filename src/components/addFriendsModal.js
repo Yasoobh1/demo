@@ -3,13 +3,23 @@ import { Grid, Form, Segment, Button } from "semantic-ui-react";
 import "../config"
 import * as firebase from 'firebase'
 import Modal from 'react-modal';
+const customStyles = {
+    content : {
+      top                   : '20%',
+      left                  : '20%',
+      right                 : '30%',
+      bottom                : '30%',
+      transform             : 'translate(10%, 0%)',
 
+    },
+  };
 
 const AddFriendsModal = ({ addFriendModalOpen, collectionFriend, handleAddFriends, collectAmount, description, closeAddFriendsModal, collectdata }) => {
     return (
         <Grid.Column style={{ maxWidth: 450 }}>
+            <Modal style={customStyles} isOpen={addFriendModalOpen}>
+            <h1 style={{justifyContent:'center',display:'flex'}}>Add Friends</h1>
 
-            <Modal isOpen={addFriendModalOpen}>
                 <Form size="large">
                     <Segment stacked>
                         <Form.Input

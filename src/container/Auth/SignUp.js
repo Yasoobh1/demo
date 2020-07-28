@@ -38,7 +38,7 @@ class SignUp extends React.Component {
     }
 
     isPasswordValid = (password, passwordConfirmation) => {
-        if (password.length > 6 || passwordConfirmation.length < 6) {
+        if (password.length < 6 || passwordConfirmation.length < 6) {
             return false;
         } else if (password !== passwordConfirmation) {
             return false;

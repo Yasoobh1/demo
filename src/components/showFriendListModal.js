@@ -12,7 +12,7 @@ const ShowFriendListModal = ({ closeFriendListModal, openModal, renderFriendList
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell>Order</Table.HeaderCell>
+                            <Table.HeaderCell>Description</Table.HeaderCell>
                             <Table.HeaderCell>Bill</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>

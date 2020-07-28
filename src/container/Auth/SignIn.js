@@ -100,9 +100,9 @@ class SignIn extends React.Component {
                             {this.displayErrors(errors)}
                         </Message>
                     )}
-                    <Message>Don't hanve an account?
+                    <Message>Don't have an account?
                         <Link to="/register"
-                        >Register</Link>
+                        > Register</Link>
                     </Message>
                 </Grid.Column>
             </Grid>

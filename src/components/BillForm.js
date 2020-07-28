@@ -19,7 +19,7 @@ class BillForm extends React.Component {
             e.preventDefault()
             firebase
                 .database()
-                .ref(`users/${this.props.currentUser.user.uid}`)
+                .ref(`records/${this.props.currentUser.user.uid}`)
                 .push({
                     bill: bill,
                     amount: amount,

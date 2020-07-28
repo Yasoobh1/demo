@@ -23,7 +23,7 @@ class Demo extends React.Component {
     renderFriendList: []
   }
   componentDidMount() {
-    var billRef = firebase.database().ref(`users/${this.props.currentUser.user.uid}`)
+    var billRef = firebase.database().ref(`records/${this.props.currentUser.user.uid}`)
     billRef.on('value', (childSnapShot) => {
       const billResult = [];
       childSnapShot.forEach((data) => {
@@ -43,7 +43,7 @@ class Demo extends React.Component {
       e.preventDefault()
       firebase
         .database()
-        .ref(`users/${setKey}/friendList`)
+        .ref(`records/${setKey}/friendList`)
         .push({
           collectionFriend: collectionFriend,
           collectAmount: collectAmount,
@@ -58,7 +58,7 @@ class Demo extends React.Component {
   }
   renderList = (key) => {
     this.setState({ openModal: true })
-    var ref = firebase.database().ref(`users/${key}/friendList`);
+    var ref = firebase.database().ref(`records/${key}/friendList`);
     ref.on('value', (childSnapShot) => {
       const result = [];
       childSnapShot.forEach((data) => {
@@ -107,14 +107,15 @@ class Demo extends React.Component {
           />
 
           <ShowFriendListModal closeFriendListModal={this.closeFriendListModal} openModal={openModal} renderFriendList={renderFriendList} />
-          <button onClick={() => this.logOut()} class="small ui button">LogOut</button>
+          <div style={{paddingTop:20}}>
+           <button onClick={() => this.logOut()} class="small ui button">LogOut</button>
+          </div>
         </Grid.Column>
       </Grid >
     );
   }
 }
 const mapStateFromProps = state => ({
-  isLoading: state.auth.isLoading,
   currentUser: state.auth.currentUser
 })
 export default connect(mapStateFromProps, { clearUser })(Demo);
