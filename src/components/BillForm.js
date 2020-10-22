@@ -67,7 +67,7 @@ class BillForm extends React.Component {
 
                     </Form>
                     : ''}
-                {showInput ? <PayerForm /> : ''}
+                {showInput ? <PayerForm showInput={this.state.showInput} /> : ''}
 
             </Grid.Column>
         )
@@ -75,6 +75,6 @@ class BillForm extends React.Component {
 }
 const mapStateFromProps = state => ({
     currentUser: state.auth.currentUser
-  })
+})
 
 export default connect(mapStateFromProps)(BillForm);
